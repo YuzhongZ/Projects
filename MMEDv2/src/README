@@ -1,0 +1,53 @@
+# jemdoc: title{MMED v2 - README}
+# menu{menu}{README.html}, title{MMED - README}
+= Max-Margin Early Event Detectors -- Version 2
+
+By: Minh Hoai Nguyen (minhhoai@cs.stonybrook.edu)    
+Date: 18 Feb 2016
+Last modified: 1 Mar 2016
+
+== Prerequisite libraries:
+
+LibSVM (For normal binary SVMs): [http://www.csie.ntu.edu.tw/~cjlin/libsvm/ link]
+
+We also require some matlab functions from Kevin Murphy's toolboxes. 
+For your convenience, necessary functions are included in this bundle
+You do not to download and install Kevin Murphy's toolboxes.
+
+== Compilation:
+  
+> mex m_mexAMOC.cpp
+
+== Run Matlab demos:
+
+> m_main_synData.m: main function for experiments on synthetic data. This should take 10 mins. 
+	
+> m_main_CK(2): Experiment on Cohn Kanade dataset. The parameter 2 is for two runs. 
+This takes around 8 mins. For reliable results, should run m_main_CK(10) for 10 runs.
+
+> m_main_asl(2): Experiment on Australian sign language. The parameter 2 is for two runs. 
+This takes around 20mins. For reliable results, should run m_main_asl(10) for 10 runs, which will take 150mins.
+
+
+== Source code
+
+The main code is contained in *.\/src*. The most important files are:
+
+- M_MMED.m: main class for both MMED and Structure-Output SVMs. The main functions are:
+	train: training either MMED or SOSVM. There are some tunable parameters in the function.
+		The training code uses quadratic programming of Matlab. If you have Cplex, you can use
+		quadratic programming of Cplex. Search for the text cplexqp and uncomment and comment approprate lines. 
+
+	eval, eval_fast: for evaluation
+
+- m_params.m: contains data structure signatures for some important parameters and variables. 	
+
+- M_SegSVM.m: class for segment-based SVMs. Function M_SegSVM.test is useful for generating performance curves.
+
+- M_FrmSVM.m: class for frame-based SVMs	
+
+- m_getPerfCurve.m: code to generate performance curves. 
+
+Helper files: ML_SlideWin, ml_roc, ml_kFoldCV_Idxs, ml_getFilesInDir
+
+
